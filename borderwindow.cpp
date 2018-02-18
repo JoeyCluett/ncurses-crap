@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
 
 	bkgd(COLOR_PAIR(1));
 	box(stdscr, 0, 0);
-
+  
 	WINDOW* win = newwin(HEIGHT, WIDTH, Y, X);
 	wbkgd(win, COLOR_PAIR(2));
 	box(win, 0, 0);
