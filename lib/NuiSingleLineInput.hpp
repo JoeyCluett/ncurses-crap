@@ -1,5 +1,5 @@
-#ifndef __JJC__NUI__LAYOUT__H__
-#define __JJC__NUI__LAYOUT__H__
+#ifndef __JJC__NUI__SINGLE__LINE__INPUT__H__
+#define __JJC__NUI__SINGLE__LINE__INPUT__H__
 
 /*
 	This is free and unencumbered software released into the public domain.
@@ -29,31 +29,46 @@
 */
 
 #include <ncurses.h>
+#include "NuiUtility.hpp"
+#include "NuiPartition.hpp"
+#include <string.h>
+#include <string>
 
-class NuiLayout {
-private:
-	int x = 0, y = 0, h = 0, w = 0;
+class NuiSingleLineInput : public NuiPartition {
+protected:
 
 public:
-	// get window parameters
-	int getX(void) { return x; }
-	int getY(void) { return y; }
-	int getH(void) { return h; }
-	int getW(void) { return w; }
-
-	void setPos(float x, float y, float h, float w);
+	NuiSingleLineInput(int color_pair);
+	std::string getInput(void);
+	void clearText(void);
 };
 
-void NuiLayout::setPos(float x, float y, float h, float w) {
-	int rows, columns;
-	getmaxyx(stdscr, rows, columns);
-	float f_rows    = rows;
-	float f_columns = columns;
-
-	this->w = (int)(f_columns * w);
-	this->h = (int)(f_rows * h);
-	this->x = (int)(f_columns * x);
-	this->y = (int)(f_rows * y);
+NuiSingleLineInput::NuiSingleLineInput(int color_pair) : NuiPartition(color_pair) {
+	keypad(this->win, TRUE);
 }
 
-#endif // __JJC__NUI__LAYOUT__H__
+std::string NuiSingleLineInput::getInput(void) {
+	int _getY = this->h / 2;
+	//if(this->h % 2)
+		//_getY++;
+
+	wmove(this->win, _getY, 1);
+	wrefresh(this->win);
+
+	std::string str_input = "";
+
+	// build string until user presses newline
+	while(str_input.length() < this->getW()-2) {
+		char ch = (char)wgetch(this->win);
+		if(ch == '\n') {
+			return str_input;
+		}
+		str_input += ch;
+	}
+}
+
+void NuiSingleLineInput::clearText(void) {
+
+}
+
+#endif // __JJC__NUI__SINGLE__LINE__INPUT__H__

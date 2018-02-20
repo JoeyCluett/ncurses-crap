@@ -37,7 +37,7 @@
 */
 
 class NuiPartition {
-private:
+protected:
 	WINDOW* win = NULL;
 	int x = 0, y = 0, w = 0, h = 0;
 	int xoff = 0, yoff = 0, woff = 0, hoff = 0;

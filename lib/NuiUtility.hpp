@@ -33,20 +33,6 @@
 #include <map>
 #include <ncurses.h>
 
-enum NuiWindowMethod {
-	// NUI will try to make everything fit according to given dimensions
-	NuiWindowMethod_Absolute  = 0, // give specific size (i.e. 3 rows, 3 columns)
-	NuiWindowMethod_Relative  = 1, // give normalized percent (0.1 for 1/10th of screen space)
-	NuiWindowMethod_Remaining = 2  // give this window all remaining space
-};
-
-enum NuiWindowGravity {
-	NuiWindowGravity_Up    = 0, 
-	NuiWindowGravity_Down  = 1,
-	NuiWindowGravity_Left  = 2,
-	NuiWindowGravity_Right = 3
-};
-
 void NuiUtility_MainWindowSize(int& y, int& x) {
 	getmaxyx(stdscr, y, x);
 }
