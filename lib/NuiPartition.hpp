@@ -48,6 +48,7 @@ protected:
 public:
 	static std::vector<WINDOW*> window_vec;
 	static void refresh(void);
+	static void cleanAll(void);
 
 	NuiPartition(int color_pair); // color pairs need to be initialized beforehand
 
@@ -67,6 +68,8 @@ public:
 	NuiPartition& done(void);
 	NuiPartition& outline(void);
 
+	// clean everything from this partition (print spaces in each location)
+	void clean(void);
 };
 
 NuiPartition::NuiPartition(int color_pair) {
@@ -76,7 +79,21 @@ NuiPartition::NuiPartition(int color_pair) {
 void NuiPartition::refresh(void) {
 	for(int i = 0; i < window_vec.size(); i++) 
 		wrefresh(window_vec[i]);
-	//refresh();
+	wrefresh(stdscr);
+}
+
+void NuiPartition::clean(void) {
+	for(int __x = 0; __x < w; __x++) {
+		for(int __y = 0; __y < h; __y++) {
+			mvwaddch(this->win, __y, __x, ' ');
+		}
+	}
+}
+
+// static method
+void NuiPartition::cleanAll(void) {
+	for(int i = 0; i < window_vec.size(); i++)
+		((NuiPartition*)window_vec[i])->clean();
 }
 
 NuiPartition& NuiPartition::outline(void) {
