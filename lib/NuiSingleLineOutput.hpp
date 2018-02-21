@@ -1,5 +1,5 @@
-#ifndef __JJC__NUI__REFRESH__H__
-#define __JJC__NUI__REFRESH__H__
+#ifndef __JJC__NUI__SINGLE__LINE__OUTPUT__H__
+#define __JJC__NUI__SINGLE__LINE__OUTPUT__H__
 
 /*
 	This is free and unencumbered software released into the public domain.
@@ -30,40 +30,39 @@
 
 #include "NuiUtility.hpp"
 #include "NuiPartition.hpp"
-#include <vector>
+#include "NuiUpdate.hpp"
 
-class NuiUpdate {
+#include <string.h>
+#include <string>
+
+class NuiSingleLineOutput : public NuiPartition, public NuiUpdate {
+private:
+	std::string txt;
+
 public:
-	NuiUpdate(void);
+	NuiSingleLineOutput(int color_pair);
 
-	static void CUR(void);
+	void setText(const std::string& txt);
 
-	// using ui_update instead of refresh to avoid ambiguous
-	// function calls to ncurses refresh function
-	virtual void ui_update(void) = 0;
-
-	// update all NuiUpdate objects
-	static void update_all(void);
+	// inherited virtual method
+	void ui_update(void);
 };
 
-// polymorphise
-static std::vector<NuiUpdate*> ui_update_vec;
-
-NuiUpdate::NuiUpdate(void) {
-	ui_update_vec.push_back(this);
+NuiSingleLineOutput::NuiSingleLineOutput(int color_pair) : NuiPartition(color_pair), NuiUpdate() {
+	keypad(this->win, TRUE);
 }
 
-void NuiUpdate::update_all(void) {
-	for(int i = 0; i < ui_update_vec.size(); i++) {
-		ui_update_vec[i]->ui_update();
-	}
+void NuiSingleLineOutput::ui_update(void) {
+	if(this->h > 2)
+		box(this->win, 0, 0);
+	mvwaddnstr(this->win, this->h/2, 1, this->txt.c_str(), this->w-2);
 }
 
-void NuiUpdate::CUR(void) {
-	NuiPartition::cleanAll();
-	NuiUpdate::update_all();
-	NuiPartition::refresh();
+void NuiSingleLineOutput::setText(const std::string& txt) {
+	clean();
+	this->txt = txt;
+	this->ui_update();
+	wrefresh(this->win);
 }
 
-#endif // __JJC__NUI__REFRESH__H__
-
+#endif // __JJC__NUI__SINGLE__LINE__OUTPUT__H__

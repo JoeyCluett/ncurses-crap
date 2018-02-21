@@ -70,7 +70,8 @@ public:
 
 	// clean everything from this partition (print spaces in each location)
 	void clean(void);
-};
+
+} __attribute__((packed)); // avoid problems with pointer cast used in the static cleanAll() method
 
 NuiPartition::NuiPartition(int color_pair) {
 	this->color_pair = color_pair;
