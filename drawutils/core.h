@@ -3,6 +3,12 @@
 #include <ncurses.h>
 #include <string>
 
+const int core_color_red   = 1;
+const int core_color_green = 2;
+const int core_color_blue  = 3;
+const int core_color_white = 4;
+const int core_color_black = 5;
+
 class core_window_t {
 private:
     int rows = 0;
@@ -14,6 +20,16 @@ public:
         raw();
         keypad(stdscr, TRUE);
         noecho();
+
+        getmaxyx(stdscr, this->rows, this->columns);
+
+        // setup the colors used in this API
+        start_color();
+        init_pair(core_color_red,   COLOR_RED,   COLOR_RED);
+        init_pair(core_color_green, COLOR_GREEN, COLOR_GREEN);
+        init_pair(core_color_blue,  COLOR_BLUE,  COLOR_BLUE);
+        init_pair(core_color_white, COLOR_WHITE, COLOR_WHITE);
+        init_pair(core_color_black, COLOR_BLACK, COLOR_BLACK);
     }
 
     // de-init ncurses subsystem
