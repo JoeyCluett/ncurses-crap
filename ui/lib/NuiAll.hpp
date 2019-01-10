@@ -8,5 +8,6 @@
 // UI elements
 #include "NuiSingleLineInput.hpp"
 #include "NuiSingleLineOutput.hpp"
+#include "NuiScrollingOutput.hpp"
 
 #endif // __JJC__NUI__ALL__H__

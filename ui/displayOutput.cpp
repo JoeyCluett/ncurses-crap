@@ -7,9 +7,10 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	NuiUtility_StartNcurses();
 
-	int colorBlackRed  = NuiUtility_InitColorPair(COLOR_GREEN, COLOR_WHITE);
-	int colorRedBlack = NuiUtility_InitColorPair(COLOR_RED, COLOR_BLACK);
-	
+	int colorBlackRed     = NuiUtility_InitColorPair(COLOR_GREEN, COLOR_WHITE);
+	int colorRedBlack     = NuiUtility_InitColorPair(COLOR_RED, COLOR_BLACK);
+	int colorBlackMagenta = NuiUtility_InitColorPair(COLOR_BLACK, COLOR_MAGENTA);
+
 	NuiSingleLineInput nuisli(colorBlackRed);
 	nuisli
 		._X_(0.0f)
