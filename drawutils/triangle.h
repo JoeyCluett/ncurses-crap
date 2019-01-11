@@ -23,3 +23,15 @@ void draw_triangle(core_window_t& cw, triangle_t tri, int color) {
     draw_line(cw, {tri.x3, tri.y3, tri.x1, tri.y1}, color);
 }
 
+void fill_triangle(core_window_t& win, triangle_t tri, int color) {
+    // sort the vertices in increasing y-order
+
+    if(tri.y2 < tri.y1) {
+        
+    }
+
+    if(tri.y3 < tri.y2) {
+
+    }
+
+}

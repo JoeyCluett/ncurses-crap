@@ -52,7 +52,7 @@ void draw_line(core_window_t& win, line_t l, int color) {
     float slope = (l.y1 - l.y2) / (l.x1 - l.x2);
     float y_intercept = l.y1 - (slope * l.x1);
 
-    if(slope <= 1.6f) {
+    if(slope <= 2.0f) {
         // function of x : y = f(x)
         
         // find the range onscreen where this line lies
