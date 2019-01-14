@@ -37,50 +37,22 @@ public:
         endwin();
     }
 
-    int num_rows(void) {
-        return this->rows;
+    void clear_screen(void) {
+        for(int y = 0; y < this->rows; y++) {
+            for(int x = 0; x < this->columns; x++)
+                this->draw_char_at(y, x, ' ');
+        }
     }
 
-    int num_columns(void) {
-        return this->columns;
-    }
-
-    void set_bold(void) {
-        attron(A_BOLD);
-    }
-
-    void reset_bold(void) {
-        attroff(A_BOLD);
-    }
-
-    void set_attribute(int attr) {
-        attron(attr);
-    }
-
-    void reset_attribute(int attr) {
-        attroff(attr);
-    }
-
-    int get_char(void) {
-        return getch();
-    }
-
-    void print_string(std::string str) {
-        printw(str.c_str());
-    }
-
-    void print_char(int c) {
-        printw("%c", c);
-    }
-
-    void flip(void) {
-        refresh();
-    }
-
-    void draw_char_at(int y, int x, int ch) {
-        mvaddch(y, x, ch);
-    }
-
+    int num_rows(void) { return this->rows; }
+    int num_columns(void) { return this->columns; }
+    void set_attribute(int attr) { attron(attr); }
+    void reset_attribute(int attr) { attroff(attr); }
+    int get_char(void) { return getch(); }
+    void print_string(std::string str) { printw(str.c_str()); }
+    void print_char(int c) { printw("%c", c); }
+    void flip(void) { refresh(); }
+    void draw_char_at(int y, int x, int ch) { mvaddch(y, x, ch); }
 };
 
 float mapFloat(

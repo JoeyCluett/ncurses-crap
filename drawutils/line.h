@@ -1,10 +1,13 @@
 #pragma once
 
+#include <iostream>
 #include "core.h"
 
 // should be pretty self-explanatory
 struct line_t {
     float x1, y1, x2, y2;
+
+    line_t(void) { ; }
 
     line_t(float x1, float y1, float x2, float y2) {
         this->x1 = x1;
@@ -12,8 +15,43 @@ struct line_t {
         this->x2 = x2;
         this->y2 = y2;
     }
-
 };
+
+std::ostream& operator<<(std::ostream& os, line_t l) {
+    os << "line_t[ x1: " << l.x1 << ", y1: " << l.y1 
+    << ", x2: " << l.x2 << ", y2: " << l.y2 << " ]";
+    return os;
+}
+
+line_t rotate(line_t l, float a) {
+    float sin_a = sinf(a);
+    float cos_a = cosf(a);
+
+    float tmp_x1 = l.x1 * cos_a - l.y1 * sin_a;
+    float tmp_y1 = l.x1 * sin_a + l.y1 * cos_a;
+
+    float tmp_x2 = l.x2 * cos_a - l.y2 * sin_a;
+    float tmp_y2 = l.x2 * sin_a + l.y2 * cos_a;
+
+    return {
+        tmp_x1, tmp_y1, 
+        tmp_x2, tmp_y2
+    };
+}
+
+line_t translate(line_t l, float x, float y) {
+    return {
+        l.x1 + x, l.y1 + y, 
+        l.x2 + x, l.y2 + y
+    };
+}
+
+line_t scale(line_t l, float s) {
+    return {
+        l.x1 * s, l.y1 * s, 
+        l.x2 * s, l.y2 * s
+    };
+}
 
 // function for drawing straight lines
 void draw_line(core_window_t& win, line_t l, int color) {
