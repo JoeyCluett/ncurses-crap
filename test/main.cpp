@@ -25,7 +25,8 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    draw_grid_onscreen(cw, rows, columns, core_color_blue);
+    letter::display_string(cw, "abcdefghijklm", 0.05f, 0.1f, core_color_red);
+    letter::display_string(cw, "nopqrstuvwxyz", 0.05f, 0.22f, core_color_red);
 
     cw.flip();
     cw.get_char();
@@ -44,15 +45,5 @@ void draw_grid_onscreen(core_window_t& win, int rows, int cols, int color) {
         float mapped_y = mapFloat(y, 0, rows, 0.0f, 1.0f);
         draw_line(win, {0.0f, mapped_y, 1.0f, mapped_y}, color);
     }
-/*
-    for(int i = 1; i < 8; i++) {
-        float mapped_i = mapFloat(i, 0, 8, 0.0f, 1.0f);
-        
-        // horizontal line
-        draw_line(win, {mapped_i, 0.0f, mapped_i, 1.0f}, color);
-    
-        // vertical line
-        draw_line(win, {0.0f, mapped_i, 1.0f, mapped_i}, color);
-    }
-*/
+
 }
